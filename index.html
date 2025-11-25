@@ -1,145 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>4-Wall Welcome</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>4-Wall Welcome Strip</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: #050510;
-      color: #f5f5f5;
-    }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: #050510;
+        color: #f5f5f5;
+      }
 
-    /* 3x3 grid:
-       [ empty |  FRONT | empty ]
-       [  LEFT | center | RIGHT ]
-       [ empty |  BACK  | empty ]
-    */
-    .wall-grid {
-      display: grid;
-      width: 100vw;
-      height: 100vh;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-template-areas:
-        ". front ."
-        "left center right"
-        ". back .";
-    }
+      /* One tall strip, 4 vertical slices */
+      .wall-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        width: 100vw;
+        height: 100vh;
+      }
 
-    .screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      padding: 2rem;
-    }
+      .screen {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-left: 2px solid rgba(255, 255, 255, 0.08);
+        border-right: 2px solid rgba(255, 255, 255, 0.08);
+        padding: 2rem;
+      }
 
-    .screen-title {
-      font-size: min(3vw, 3vh);
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
+      .screen-title {
+        font-size: min(3vw, 3vh);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
 
-    .screen-subtitle {
-      margin-top: 1rem;
-      font-size: min(1.6vw, 1.6vh);
-      opacity: 0.8;
-      max-width: 32rem;
-    }
+      .screen-subtitle {
+        margin-top: 1rem;
+        font-size: min(1.6vw, 1.6vh);
+        opacity: 0.8;
+        max-width: 30rem;
+      }
 
-    .screen--front  { grid-area: front;  background: radial-gradient(circle at center, #1a1a40 0, #050510 60%); }
-    .screen--back   { grid-area: back;   background: radial-gradient(circle at center, #1a4030 0, #050510 60%); }
-    .screen--left   { grid-area: left;   background: radial-gradient(circle at center, #40361a 0, #050510 60%); }
-    .screen--right  { grid-area: right;  background: radial-gradient(circle at center, #401a1a 0, #050510 60%); }
+      /* Just to visually separate them a bit */
+      .screen--front {
+        background: radial-gradient(circle at center, #1a1a40 0, #050510 60%);
+      }
+      .screen--right {
+        background: radial-gradient(circle at center, #401a1a 0, #050510 60%);
+      }
+      .screen--back {
+        background: radial-gradient(circle at center, #1a4030 0, #050510 60%);
+      }
+      .screen--left {
+        background: radial-gradient(circle at center, #40361a 0, #050510 60%);
+      }
 
-    /* Optional: invisible center to keep layout shape; could be used later */
-    .center {
-      grid-area: center;
-    }
-
-    .corner-label {
-      position: absolute;
-      top: 0.4rem;
-      left: 0.8rem;
-      font-size: min(0.9vw, 0.9vh);
-      opacity: 0.4;
-    }
-
-    .screen-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-  </style>
-</head>
-<body>
-  <div class="wall-grid">
-    <!-- FRONT (in front of you) -->
-    <section class="screen screen--front">
-      <div class="screen-inner">
+      .corner-label {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.75rem;
+        font-size: min(0.9vw, 0.9vh);
+        opacity: 0.4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wall-strip">
+      <!-- Column 1 -->
+      <section class="screen screen--front">
         <div class="corner-label">FRONT</div>
         <div class="screen-title">Welcome, Front Wall</div>
         <div class="screen-subtitle">
-          This is your main view. Everything starts here.
+          Your main viewpoint. Everything starts here.
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- LEFT -->
-    <section class="screen screen--left">
-      <div class="screen-inner">
-        <div class="corner-label">LEFT</div>
-        <div class="screen-title">Welcome, Left Wall</div>
-        <div class="screen-subtitle">
-          Your left side display, ready for supporting details, tools, or menus.
-        </div>
-      </div>
-    </section>
-
-    <!-- RIGHT -->
-    <section class="screen screen--right">
-      <div class="screen-inner">
+      <!-- Column 2 -->
+      <section class="screen screen--right">
         <div class="corner-label">RIGHT</div>
         <div class="screen-title">Welcome, Right Wall</div>
         <div class="screen-subtitle">
-          Your right side display, perfect for stats, logs, or extra visuals.
+          Ideal for secondary info, tools, or supporting visuals.
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- BACK (behind you) -->
-    <section class="screen screen--back">
-      <div class="screen-inner">
+      <!-- Column 3 -->
+      <section class="screen screen--back">
         <div class="corner-label">BACK</div>
         <div class="screen-title">Welcome, Back Wall</div>
         <div class="screen-subtitle">
-          Behind you in the virtual space—great for ambience or system status.
+          Behind you in the virtual space. Great for ambience or status.
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Center (empty for now) -->
-    <div class="center"></div>
-  </div>
-</body>
+      <!-- Column 4 -->
+      <section class="screen screen--left">
+        <div class="corner-label">LEFT</div>
+        <div class="screen-title">Welcome, Left Wall</div>
+        <div class="screen-subtitle">
+          Your left-side display. Perfect for menus, maps, or notes.
+        </div>
+      </section>
+    </div>
+  </body>
 </html>
